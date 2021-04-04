@@ -61,8 +61,13 @@ if (isset($_GET['account_request'])) {
   $sn=filter_var($_GET['last_name'], FILTER_SANITIZE_STRING);
   $new_account_r['sn'] = $sn;
 
-  $uid = generate_username($first_name,$last_name);
-  $new_account_r['uid'] = $uid;
+  if (isset($_GET['username'])) {
+    $uid=filter_var($_GET['username'], FILTER_SANITIZE_STRING);
+    $new_account_r['uid'] = $uid;
+  } else {
+    $uid = generate_username($givenname,$sn);
+    $new_account_r['uid'] = $uid;
+  }
 
   if ($ENFORCE_SAFE_SYSTEM_NAMES == TRUE) {
     $cn = "$givenname$sn";
@@ -84,6 +89,17 @@ if (isset($_GET['account_request'])) {
     $disabled_email_tickbox = FALSE;
   }
   $new_account_r['mail'] = $mail;
+
+  // random password
+  if (isset($_GET["random_password"])) {
+    random_password();
+  }
+
+  // Check mail
+  if (isset($_GET["send_email"])) {
+    $send_email_checkbox = TRUE;
+    $new_account_r['send_email_checkbox'] = $send_email_checkbox;
+  }
 
 }
 
