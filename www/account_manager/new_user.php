@@ -90,17 +90,6 @@ if (isset($_GET['account_request'])) {
   }
   $new_account_r['mail'] = $mail;
 
-  // random password
-  if (isset($_GET["random_password"])) {
-    random_password();
-  }
-
-  // Check mail
-  if (isset($_GET["send_email"])) {
-    $send_email_checkbox = TRUE;
-    $new_account_r['send_email_checkbox'] = $send_email_checkbox;
-  }
-
 }
 
 if (isset($_POST['create_account'])) {
